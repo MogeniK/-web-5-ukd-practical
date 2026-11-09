@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPA Architecture Demo — Практична робота №5</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Глобальна шапка з індикатором стану (State Monitor) -->
+    <header class="main-header">
+        <div class="logo">
+            <span class="logo-icon">⚡</span>
+            <span class="logo-text">SPA Engine</span>
+        </div>
+        
+        <!-- State Monitor: Автономний віджет перевірки неперервності стану -->
+        <div class="state-monitor">
+            <div class="monitor-item">
+                <span class="monitor-label">Сесія SPA:</span>
+                <span id="session-timer" class="monitor-value">00:00:00</span>
+            </div>
+            <div class="monitor-item audio-player">
+                <span class="monitor-label">Глобальний звук:</span>
+                <audio id="global-audio" controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+                    Ваш браузер не підтримує аудіо елемент.
+                </audio>
+            </div>
+        </div>
+    </header>
+
+    <!-- Глобальна навігаційна панель -->
+    <nav class="main-nav" id="main-nav">
+        <a href="#catalog" class="nav-link active" data-section="catalog">Каталог / Огляд</a>
+        <a href="#specification" class="nav-link" data-section="specification">Специфікація / Про проект</a>
+        <a href="#feedback" class="nav-link" data-section="feedback">Форма зворотного зв'язку</a>
+    </nav>
+
+    <!-- Головний контент з секціями -->
+    <main class="main-content">
+        <!-- Секція 1: Каталог / Огляд -->
+        <section id="catalog" class="page-section">
+            <h2>Каталог програмних модулів</h2>
+            <p class="section-desc">Демонстраційний огляд компонентів архітектури SPA на чистому JavaScript.</p>
+            
+            <div class="cards-grid">
+                <article class="card">
+                    <div class="card-tag">Core</div>
+                    <h3>DOM Routing Engine</h3>
+                    <p>Перемикання секцій шляхом модифікації CSS-класів видимості без перезавантаження сторінки.</p>
+                    <button class="btn btn-outline" type="button">Детальніше</button>
+                </article>
+                <article class="card">
+                    <div class="card-tag">State</div>
+                    <h3>Global State Monitor</h3>
+                    <p>Збереження життєвого циклу JavaScript-скриптів, активних таймерів та відтворення медіафайлів.</p>
+                    <button class="btn btn-outline" type="button">Детальніше</button>
+                </article>
+                <article class="card">
+                    <div class="card-tag">Performance</div>
+                    <h3>Zero Network Reload</h3>
+                    <p>Відсутність повторних HTTP-запитів GET за новими HTML-структурами при навігації.</p>
+                    <button class="btn btn-outline" type="button">Детальніше</button>
+                </article>
+            </div>
+        </section>
+
+        <!-- Секція 2: Специфікація / Про проект -->
+        <section id="specification" class="page-section is-hidden">
+            <h2>Специфікація та Архітектура</h2>
+            <p class="section-desc">Порівняльний аналіз архітектурних моделей веб-додатків.</p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Характеристика</th>
+                        <th>MPA (Multi-Page App)</th>
+                        <th>SPA (Single-Page App)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Рендеринг HTML</td>
+                        <td>На сервері під час кожного переходу</td>
+                        <td>Одноразово базовий каркас, далі DOM-модифікація</td>
+                    </tr>
+                    <tr>
+                        <td>Перезавантаження сторінки</td>
+                        <td>Повне перезавантаження при кожному переході</td>
+                        <td>Без перезавантаження (Zero Reload)</td>
+                    </tr>
+                    <tr>
+                        <td>Глобальний стан (State)</td>
+                        <td>Втрачається/скидається при кожному запиті</td>
+                        <td>Зберігається неперервно в пам'яті браузера</td>
+                    </tr>
+                    <tr>
+                        <td>Мережевий трафік</td>
+                        <td>Повторне завантаження розмітки HTML</td>
+                        <td>Лише сирі дані (JSON/REST API) при потребі</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Секція 3: Форма зворотного зв'язку -->
+        <section id="feedback" class="page-section is-hidden">
+            <h2>Форма зворотного зв'язку</h2>
+            <p class="section-desc">Тест збереження даних форми під час перемикання між розділами SPA.</p>
+
+            <form class="feedback-form" id="contact-form">
+                <div class="form-group">
+                    <label for="username">Ім'я користувача:</label>
+                    <input type="text" id="username" name="username" placeholder="Введіть ваше ім'я" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Електронна пошта:</label>
+                    <input type="email" id="email" name="email" placeholder="name@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="topic">Тема звернення:</label>
+                    <select id="topic" name="topic">
+                        <option value="general">Загальне питання</option>
+                        <option value="bug">Повідомити про помилку</option>
+                        <option value="proposal">Пропозиція співпраці</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Повідомлення:</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Введіть ваш текст..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Надіслати повідомлення</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Підвал сторінки -->
+    <footer class="main-footer">
+        <p>&copy; 2026 SPA Research Lab. Розроблено в межах Практичної роботи №5.</p>
+        <div class="status-badge"><span class="pulse-dot"></span> SPA Active & Live</div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
